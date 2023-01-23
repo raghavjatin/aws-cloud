@@ -10,6 +10,8 @@ class ImageUpload {
     this.imageUploadController = new ImageUploadController();
     this.fileUploadValidator = new fileValidator();
     this.uploadImageOnS3();
+    this.deleteImageOnS3();
+    this.getImageOnS3();
   }
 
   uploadImageOnS3() {
@@ -18,6 +20,12 @@ class ImageUpload {
       this.fileUploadValidator.uploadImageValidator().array("file"),
       this.imageUploadController.uploadAttachment
     );
+  }
+  deleteImageOnS3() {
+    this.router.delete("/delete", this.imageUploadController.deleteAttachment);
+  }
+  getImageOnS3() {
+    this.router.get("/find", this.imageUploadController.findAttachments);
   }
 }
 

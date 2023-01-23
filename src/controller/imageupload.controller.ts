@@ -14,4 +14,21 @@ export class ImageUploadController {
     const response = await this.s3Service.uploadAttachment(req.files);
     res.send(response);
   };
+  public deleteAttachment = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const {
+      body: { fileNames },
+    } = req;
+    const response = await this.s3Service.deleteAttachment(fileNames);
+    res.send(response);
+  };
+  public findAttachments = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const response = await this.s3Service.getDownloadSignedUrl();
+    res.send(response);
+  };
 }
