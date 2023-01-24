@@ -1,12 +1,17 @@
 import AWS from "aws-sdk";
 import { emailFormate } from "../type/email.type";
 import awsConfig from "../config/config";
-import { AWS_SES_API_VERSION } from "../config/secret";
+import {
+  AWS_ACCESS_KEY_ID,
+  AWS_REGION,
+  AWS_SECRET_ACCESS_KEY,
+  AWS_SES_API_VERSION,
+} from "../config/secret";
 
 AWS.config.update({
-  accessKeyId: awsConfig.aws.key,
-  secretAccessKey: awsConfig.aws.secret,
-  region: awsConfig.aws.ses.region,
+  accessKeyId: AWS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  region: AWS_REGION,
 });
 
 export class ServiceSendSESEmail {
@@ -40,9 +45,9 @@ export class ServiceSendSESEmail {
 
     ses.sendEmail(params, (err, data) => {
       if (err) {
-        return console.log(err, err.stack);
+        return err;
       } else {
-        console.log("Email sent.", data);
+        return data;
       }
     });
   }
