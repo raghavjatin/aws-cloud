@@ -1,0 +1,54 @@
+version: "3.2"
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2-amd64
+    env_file:
+      - elasticsearch.env
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.2
+    container_name: kibana
+    ports:
+      - 5601:5601
+    environment:
+      - SERVER_HOST="0"
+      - ELASTICSEARCH_HOSTS="http://elasticsearch:9200"
+      - XPACK_SECURITY_ENABLED = false
+# services:
+#   aws-cloud:
+#     build:
+#       context: .
+#       dockerfile: dev/docker/Dockerfile
+#     command: npm run watch
+#     ports:
+#       - "8080:8080"
+#     networks:
+#       - aws-cloud-net
+#     volumes:
+#       - .:/var/app/aws-cloud
+#       - /var/app/aws-cloud/node_modules
+#     env_file:
+#       - .env # it will overwrite .env file content
+#     depends_on:
+#       - aws-cloud_postgres
+
+#   aws-cloud_postgres:
+#     image: postgres:latest
+#     environment:
+#       POSTGRES_PASSWORD: root
+#       POSTGRES_USER: root
+#       POSTGRES_DB: aws-cloud
+#     ports:
+#       - "5432:5432"
+#     networks:
+#       - aws-cloud-net
+#     volumes:
+#       - "aws-cloud-postgres-vol:/var/lib/postgres"
+
+# networks:
+#   aws-cloud-net:
+#     driver: bridge
+# volumes:
+#   aws-cloud-postgres-vol:
