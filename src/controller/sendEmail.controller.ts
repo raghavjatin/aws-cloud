@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { ServiceSendSESEmail } from "../services/ses-client";
+import { ServiceSendSESEmail } from "../util/ses-client";
 
 export class SendEmailController {
   private serviceSendSESEmail: ServiceSendSESEmail;
