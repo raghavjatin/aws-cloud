@@ -6,11 +6,31 @@ class ElasticRoute {
   public elasticSearchController: ElasticSearchController;
   constructor() {
     this.elasticSearchController = new ElasticSearchController();
-    this.searchData();
+    this.assign();
   }
 
-  searchData() {
+  private assign(): void {
     this.router.get("/search", this.elasticSearchController.searchData);
+    this.router.get(
+      "/search/fulltext",
+      this.elasticSearchController.seachFullTextQuery
+    );
+    this.router.get(
+      "/search/range",
+      this.elasticSearchController.seachRangeQuery
+    );
+    this.router.get(
+      "/search/compound",
+      this.elasticSearchController.seachCompoundQuery
+    );
+    this.router.get(
+      "/search/term",
+      this.elasticSearchController.seachTermLevenQuery
+    );
+    this.router.get(
+      "/search/multiMatch",
+      this.elasticSearchController.seachMultiMatchQuery
+    );
   }
 }
 
