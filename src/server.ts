@@ -2,16 +2,20 @@ import express, { Request, Response } from "express";
 import * as bodyParser from "body-parser";
 import { AppDataSource } from "./connection/connection";
 import { Routes } from "./routes";
+import { ElasticSearchService } from "./util/elastic.demo";
 
 class Server {
   private app: express.Application;
   private router: Routes = new Routes();
+  private elasticSearchService: ElasticSearchService;
 
   constructor() {
+    this.elasticSearchService = new ElasticSearchService();
     this.app = express(); // init the application
     this.configuration();
     this.routes();
     this.router.routes(this.app);
+    this.elasticSearchService.elasticData();
     AppDataSource.initialize()
       .then(() => {
         // db initialized

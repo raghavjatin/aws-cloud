@@ -1,7 +1,7 @@
 import express from "express";
 import { SendEmailController } from "../controller/sendEmail.controller";
 
-class sendEmail {
+class SendEmail {
   public router: express.Router = express.Router();
   public sendEmailController: SendEmailController;
   constructor() {
@@ -18,4 +18,4 @@ class sendEmail {
   }
 }
 
-export default new sendEmail().router;
+export default new SendEmail().router;
